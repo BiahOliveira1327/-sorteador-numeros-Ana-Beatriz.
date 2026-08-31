@@ -30,6 +30,40 @@ function sortear() {
         alert('O valor inicial não pode ser maior que o valor final.');
         return;
     }
+
+    // ETAPA 4 - sorteio sem repetição
+    if (quantidade > (fim - inicio + 1)) {
+        alert('A quantidade de números não pode ser maior que o intervalo disponível.');
+        return;
+    }
+
+    let sorteados = [];
+    while (sorteados.length < quantidade) {
+        let numero = obterNumeroAleatorio(inicio, fim);
+        if (!sorteados.includes(numero)) {
+            sorteados.push(numero);
+        }
+    }
+
+    document.getElementById('resultado').innerHTML = `<label class="texto__paragrafo">Números sorteados: ${sorteados.join(', ')}</label>`;
+
+    alterarStatusBotao();
+}
+
+function obterNumeroAleatorio(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function alterarStatusBotao() {
+    let btnReiniciar = document.getElementById('btn-reiniciar');
+    btnReiniciar.classList.remove('container__botao-desabilitado');
+    btnReiniciar.classList.add('container__botao');
+    btnReiniciar.disabled = false;
+
+    let btnSortear = document.getElementById('btn-sortear');
+    btnSortear.classList.remove('container__botao');
+    btnSortear.classList.add('container__botao-desabilitado');
+    btnSortear.disabled = true;
 }
 
 function reiniciar() {
